@@ -34,11 +34,17 @@ jobs:
         env:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
           NEXT_TELEMETRY_DISABLED: "1"
+
+      - name: Install Google verification file
+        run: |
+          cp public/googledb2371b02b57b155.html out/googledb2371b02b57b155.html
+          test -f out/googledb2371b02b57b155.html
+          cat out/googledb2371b02b57b155.html
+
       - name: Upload website
         uses: actions/upload-pages-artifact@v4
         with:
           path: ./out
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
